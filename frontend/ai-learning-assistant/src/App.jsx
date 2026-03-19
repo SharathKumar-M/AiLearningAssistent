@@ -21,7 +21,7 @@ const App = () => {
   if(loading) {
   return (
     <div className='flext items-center justify-center h-screen'>
-      <p>Loading....</p>
+      <p>Loading.....</p>
     </div>
     
   );
