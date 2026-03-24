@@ -4,14 +4,14 @@ import LoginPage from './pages/auth/LoginPage';
 import RegisterPage from './pages/auth/RegisterPage';
 import DashboardPage from './pages/dashboard/DashboardPage';
 import DocumentListPage from './pages/documents/DocumentListPage';
-import DocumentDetailPage from './pages/documents/DocumentDetailPage';
-import FlashcardsListPage from './pages/flashcards/FlashcardsListPage';
+import DocumentDetailPage from './pages/documents/DocumentDetailsPage';
+import FlashcardsListPage from './pages/flashcards/FlashcardListPage';
 import FlashcardPage from './pages/flashcards/FlashcardPage';
 import QuizTakePage from './pages/quizzes/QuizTakePage';
 import QuizresultPage from './pages/quizzes/QuizresultPage';
 import ProfilePage from './pages/profile/ProfilePage';
 import NotFoundPage from './pages/NotFoundPage';
-import ProtectedRoute from './component/auth/ProtectedRoute';
+import ProtectedRoute from './components/auth/ProtectedRoute';
 
 
 const App = () => {
@@ -50,7 +50,7 @@ return (
 
 
       <Route path="*" element={<NotFoundPage />} />
-      f
+      
     </Routes>
   </Router>
 )
