@@ -1,4 +1,3 @@
-import { stat } from "fs";
 
 const errorHandler = (err, req, res, next) => {
 let statusCode = err.statusCode || 500;
