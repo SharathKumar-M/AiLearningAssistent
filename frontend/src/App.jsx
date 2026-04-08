@@ -21,7 +21,7 @@ const App = () => {
   if(loading) {
   return (
     <div className='flext items-center justify-center h-screen'>
-      <p>Loading.....</p>
+      <p>Loading......</p>
     </div>
     
   );
@@ -32,7 +32,7 @@ return (
     <Routes>
       <Route
       path="/"
-      elemengt={isAuthenticated ? <Navigate to ="/dashboard" replace /> : <Navigate to="/login" replace />}
+      element={isAuthenticated ? <Navigate to ="/dashboard" replace /> : <Navigate to="/login" replace />}
       />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
