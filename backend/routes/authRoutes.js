@@ -3,11 +3,11 @@ import { body } from 'express-validator';
 import {
     register,
     login,
-    getprofile,
-    updateprofile,
+    getProfile,
+    updateProfile,
     changePassword
 } from '../controllers/authController.js';
-import auth from '../middleware/auth.js';
+import protect from '../middleware/auth.js';
 
 const router = express.Router();
 
@@ -37,3 +37,9 @@ const loginValidation = [
 
 router.post('/register', registerValidation, register);
 router.post('/login', loginValidation, login);
+
+router.get('/profile', protect, getProfile);
+router.put('/profile', protect, updateProfile);
+router.put('/change-password', protect, changePassword);
+
+export default router;
