@@ -9,9 +9,15 @@ const generateToken = (id) => {
 
 export const register = async (req, res, next) => {
     try{
+        console.log("Incoming Request Body:", req.body);
+        
         const { username, email, password } = req.body;
 
-        if(userexists) {
+        const userExists = await User.findOne({ 
+            $or: [{ email }, { username }] 
+        });
+
+        if(userExists) {
             return res.status(400).json({ 
                 success: false,
                 error: 
@@ -45,7 +51,7 @@ export const register = async (req, res, next) => {
     });
     
     }
-    catch (error) {
+    catch (error) { 
         next(error);
     }
 
