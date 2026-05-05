@@ -19,3 +19,20 @@ export const uploadDocument = async (req, res, next) => {
     }
 
 };
+
+
+export const getDocuments = async (req, res, next) => {
+
+};
+
+export const getDocument = async (req, res, next) => {
+
+};
+
+export const deleteDocument = async (req, res, next) => {
+
+};
+
+export const updateDocument = async (req, res, next) => {
+    
+};
