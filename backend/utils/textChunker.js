@@ -1,0 +1,84 @@
+/**
+ * Splits a given text into chunks of a specified size with an optional overlap.
+ * @param {string} text - The input text to be chunked.
+ * @param {number} chunkSize - The maximum size of each chunk.
+ * @param {number} overlap - The number of characters to overlap between chunks (default is 0).
+ * @returns {Array[{content: string, chunkIndex: number}]} An array of text chunks.
+ */
+
+export const chunkText = (text, chunkSize=500, overlap = 50) => {
+    if(!text || text.trim().length === 0) {
+        return [];
+    }
+
+    const cleanedText = text
+    .replace(/\r\n/g, '\n') // Normalize newlines
+    .replace(/\s+/g, ' ') // Replace multiple spaces with a single space
+    .replace(/\n /g, '\n')
+    .replace(/ \n/g, '\n')
+    .trim();
+    
+
+    const paragraphs = cleanedText.split('/\n+/').filter(p => p.trim().length > 0);
+
+    const chunks = [];
+    let currentChunk = [];
+    let currentWordCount = 0;
+    let chunkIndex = 0;
+
+
+    for (paragraph of paragraphs) {
+        const paragraphWords = paragraph.trim().split(/\s+/);
+        const paragraphWordCount = paragraphWords.length;
+
+        if(paragraphWordCount > chunkSize) {
+            if(currentChunk.length > 0) {
+                chunks.push({content: currentChunk.join('\n\n'), chunkIndex: chunkIndex++, pageNumber: 0});
+                
+                currentChunk = [];
+                currentWordCount = 0;
+            }
+            for(let i = 0; i < paragraphWords.length; i += (chunkSize - overlap)) {      
+                const chunkWords = paragraphWords.slice(i, i + chunkSize);
+                chunks.push({content: chunkWords.join(' '), chunkIndex: chunkIndex++, pageNumber: 0});
+
+                if(i + chunkSize >= paragraphWords.length) break; 
+            }
+            continue;
+            
+            }
+
+            if(currentWordCount + paragraphWordCount > chunkSize && currentChunk.length > 0) {
+                chunks.push({content: currentChunk.join('\n\n'), chunkIndex: chunkIndex++, pageNumber: 0});
+            
+
+             const prevChunkText = currentChunk.join(' ');
+             const prevWords = prevChunkText.split(/\s+/);   
+             const overlapWords = prevWords.slice(-Math.min(overlap, prevWords.length)).join('');
+
+             currentChunk = [overlapText, paragraph.trim()];
+             currentWordCount = overlapWords.split(/\s+/).length + paragraphWordCount;
+            } else {
+                currentChunk.push(paragraph.trim());
+                currentWordCount += paragraphWordCount;
+            }
+        }
+
+        if(currentChunk.length > 0) {
+            chunks.push({content: currentChunk.join('\n\n'), chunkIndex: chunkIndex++, pageNumber: 0});
+        }
+
+
+
+        if(chunks.length === 0 && cleanedText.length > 0) {
+            const allWords = cleanedText.split(/\s+/);
+            for(let i = 0; i < allWords.length; i += (chunkSize - overlap)) {
+                const chunkWords = allWords.slice(i, i + chunkSize);
+                chunks.push({content: chunkWords.join(' '), chunkIndex: chunkIndex++, pageNumber: 0});
+
+                if(i + chunkSize >= allWords.length) break;
+            }
+        }
+
+    return chunks;
+};

@@ -1,10 +1,10 @@
 import fs from 'fs/promises';
 import { PDFParse } from 'pdf-parse';
-
 /** 
-    * @param {string} filepath
-    * @returns {Promise<{text: string, numPages: number}>}
+* @param {string} filepath - The path to the PDF file
+* @returns {Promise<{text: string, numPages: number}>}
 */
+
 
 export const extractTextFromPDF =async (filepath) => {
     try {
