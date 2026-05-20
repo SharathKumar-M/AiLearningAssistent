@@ -62,9 +62,69 @@ export const uploadDocument = async (req, res, next) => {
 
 };
 
+const processPDF = async (documentId, filePath) => {
+    try {
+        const text = await extractTextFromPDF(filePath);
+        const chunks = chunkText(text, 500, 50);
+
+        await Document.findByIdAndUpdate(documentId, 
+            {
+                extractedText: text,
+                chunks: chunks,
+                status: 'ready'
+            }
+            
+         );
+
+         console.log(`Document ${documentId} processed successfully.`);
+            }catch (error) {
+                console.error(`Error processing document ${documentId}:`, error);
+                await Document.findByIdAndUpdate(documentId, { status: 'failed' });
+            }
+};
+
 
 export const getDocuments = async (req, res, next) => {
      try {
+        const documents = await Document.aggregate([
+            { $match: { userId: new mongoose.Types.ObjectId(req.user._id) } },
+            {
+                $lookup: {
+                    from: 'flashcards',
+                    localField: '_id',
+                    foreignField: 'documentId',
+                    as: 'flashcardSets'
+                }
+            },
+
+            {
+                $lookup: {
+                    from: 'quizzes',
+                    localField: '_id',
+                    foreignField: 'documentId',
+                    as: 'quizzes'
+                }
+            },
+
+            {
+                $project: {
+                    extractedText: 0,
+                    chunks: 0,
+                    flashcardSets: 0,
+                    quizzes: 0,
+                    __v: 0
+                }
+            },
+
+            {
+                $sort: { createdAt: -1 }
+            }
+        ]);
+        res.status(200).json({
+            success: true,
+            count: documents.length,
+            data: documents
+        });
     }
     catch (error) {
        
