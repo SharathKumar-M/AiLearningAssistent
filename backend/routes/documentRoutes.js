@@ -7,7 +7,7 @@ import {
     deleteDocument,
 } from '../controllers/documentController.js';
 import  protect  from '../middleware/auth.js';
-import multer from '../config/multer,js';
+import multer from '../config/multer.js';
 
 const router = express.Router();
 

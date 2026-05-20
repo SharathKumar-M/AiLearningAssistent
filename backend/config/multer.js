@@ -2,10 +2,10 @@ import multer from 'multer';
 import path, { parse } from 'path';
 import {fileURLPath } from 'url';
 import fs from 'fs';
-import { extractTextFromPDF } from '../utils/pdfUtils.js';
+import { extractTextFromPDF } from '../utils/pdfParser.js';
 import Document from '../models/Document.js';
 import mongoose from 'mongoose';
-import { chunkText } from '../utils/textUtils.js';
+import { chunkText } from '../utils/textChunker.js';
 
 const __dirname = path.dirname(__filename);
 const __filename = fileURLPath(import.meta.url);
