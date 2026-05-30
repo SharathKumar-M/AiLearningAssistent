@@ -1,7 +1,7 @@
 import Document from '../models/Document.js';
 import Flashcard from '../models/Flashcard.js';
 import Quiz from '../models/Quiz.js';
-import { extractTextFromPDF } from '../utils/textChunker.js';
+import { extractTextFromPDF } from '../utils/pdfParser.js';
 import  { chunkText } from '../utils/textChunker.js';
 import fs from 'fs';
 import mongoose from 'mongoose';

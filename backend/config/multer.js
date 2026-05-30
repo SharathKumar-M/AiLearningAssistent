@@ -1,14 +1,14 @@
 import multer from 'multer';
 import path, { parse } from 'path';
-import {fileURLPath } from 'url';
+import {fileURLToPath} from 'url';
 import fs from 'fs';
 import { extractTextFromPDF } from '../utils/pdfParser.js';
 import Document from '../models/Document.js';
 import mongoose from 'mongoose';
 import { chunkText } from '../utils/textChunker.js';
 
-const __dirname = path.dirname(__filename);
-const __filename = fileURLPath(import.meta.url);
+const __dirname = path.dirname(fileURLTOPath(import.meta.url));
+const __filename = fileURLTOPath(import.meta.url);
 
 const uploadDir = path.join(__dirname, '..', 'uploads', 'documents');
 
