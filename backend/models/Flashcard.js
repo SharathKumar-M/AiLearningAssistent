@@ -38,10 +38,9 @@ const flashcardSchema = new mongoose.Schema(
                 type: Boolean,
                 default: false
             },
-        }],
-        timestamp: true,
-        
-    }
+        ],
+    },
+    { timestamps: true }
 );
 
 flashcardSchema.index({ userId: 1, documentId: 1 })
