@@ -59,7 +59,7 @@ const quizSchema = new mongoose.Schema({
             required: true
         },
         answeredAt: {
-            date: Date,
+            type: Date,
             default: Date.now
         },
     }],

@@ -7,8 +7,8 @@ import Document from '../models/Document.js';
 import mongoose from 'mongoose';
 import { chunkText } from '../utils/textChunker.js';
 
-const __dirname = path.dirname(fileURLTOPath(import.meta.url));
-const __filename = fileURLTOPath(import.meta.url);
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const __filename = fileURLToPath(import.meta.url);
 
 const uploadDir = path.join(__dirname, '..', 'uploads', 'documents');
 
